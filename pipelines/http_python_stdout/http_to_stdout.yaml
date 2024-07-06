@@ -4,4 +4,6 @@ steps:
 - name: Do some magic with Python
   handler: transform_python
 - name: Stdout Destination
-  handler: destination_stdout
+  handler: stdio
+  args:
+    format: "%R\n%M\n"
