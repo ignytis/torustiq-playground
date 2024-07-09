@@ -2,7 +2,16 @@ steps:
 - name: HTTP Source
   handler: source_http
 - name: Do some magic with Python
+  args:
+    code_contents: |-
+      import json
+      def process(record, step_handle):
+          j = json.loads(bytes(record.content))
+          mtd = record.metadata
+          mtd["added_val"] = "hello2"
+          torustiq_send(PyRecord(content=j["test"].upper().encode("utf-8"), metadata=mtd), step_handle)
   handler: transform_python
+
 - name: Stdout Destination
   handler: stdio
   args:
