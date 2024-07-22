@@ -1,0 +1,40 @@
+# NB!!!
+# This example doesn't work, because the app locks at some point.
+# Perhaps it is gaused by aquiring GIL multiple times
+#
+# Using Python on all stages
+steps:
+- name: Python source
+  handler: transform_python
+  args:
+    code_contents: |-
+      import json
+      import time
+
+      def run(step_handle):
+        counter = 0
+        while True:
+          content = {"test": f"Hello from iteration {counter}!", "some_var": "abc"}
+          torustiq_send(PyRecord(content=json.dumps(content).encode("utf-8")), step_handle)
+          counter += 1
+          time.sleep(1)
+- name: Do some magic with Python
+  args:
+    code_contents: |-
+      import json
+      def process(record, step_handle):
+          j = json.loads(bytes(record.content))
+          mtd = record.metadata
+          mtd["added_val"] = "hello2"
+          torustiq_send(PyRecord(content=j["test"].upper().encode("utf-8"), metadata=mtd), step_handle)
+  handler: transform_python
+- name: Print Python
+  handler: transform_python
+  args:
+    code_contents: |-
+      import json
+      # f = open("a.out", "w")
+      def process(record, step_handle):
+        print(f"TEST: {record.content}")
+
+
