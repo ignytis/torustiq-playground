@@ -1,0 +1,8 @@
+# Just sends back whatever is submitted to stdin
+steps:
+- name: Stdin Source
+  handler: stdio
+- name: Stdout Destination
+  handler: stdio
+  args:
+    format: "echo: %R"
