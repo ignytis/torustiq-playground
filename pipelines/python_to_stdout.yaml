@@ -1,7 +1,7 @@
 # Using Python to generate the data
 steps:
 - name: Python source
-  handler: transform_python
+  handler: python
   args:
     code_contents: |-
       import json

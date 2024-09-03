@@ -5,7 +5,7 @@
 # Using Python on all stages
 steps:
 - name: Python source
-  handler: transform_python
+  handler: python
   args:
     code_contents: |-
       import json
@@ -27,9 +27,9 @@ steps:
           mtd = record.metadata
           mtd["added_val"] = "hello2"
           torustiq_send(PyRecord(content=j["test"].upper().encode("utf-8"), metadata=mtd), step_handle)
-  handler: transform_python
+  handler: python
 - name: Print Python
-  handler: transform_python
+  handler: python
   args:
     code_contents: |-
       import json
