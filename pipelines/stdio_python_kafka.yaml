@@ -1,0 +1,19 @@
+steps:
+- name: Stdin Source
+  handler: stdio
+- name: Do some magic with Python
+  args:
+    code_contents: |-
+      import json
+      mtd = {"kafka.topic": "my_topic_one"}
+      def process(record, step_handle):
+          torustiq_send(PyRecord(content=record.content, metadata=mtd), step_handle)
+  handler: python
+- name: Kafka Destination
+  handler: kafka
+  args:
+    driver.bootstrap_servers: 127.0.0.1:29092
+    driver.sasl.mechanism: PLAIN
+    driver.security.protocol: SASL_PLAINTEXT
+    driver.sasl.username: client
+    driver.sasl.password: client-secret
