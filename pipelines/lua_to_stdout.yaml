@@ -1,0 +1,24 @@
+# Using Lua to generate the data
+steps:
+- name: Lua source
+  handler: lua
+  args:
+    code_contents: |-
+      function wait (a) 
+          local sec = tonumber(os.clock() + a); 
+          while (os.clock() < sec) do 
+          end 
+      end
+
+      function run (step_handle)
+        while true do
+          torustiq_send(step_handle, "Hello, World!!", {a="b", c="d"})
+          wait(1)
+        end
+      end
+- name: Stdout Destination
+  handler: stdio
+  args:
+    format: "record: %R\nmetadata: %M\n"
+
+
