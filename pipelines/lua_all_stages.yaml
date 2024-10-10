@@ -1,0 +1,41 @@
+# Using Lua to generate the data
+steps:
+- name: Lua source
+  handler: lua
+  args:
+    code_contents: |-
+      function wait (a) 
+          local sec = tonumber(os.clock() + a); 
+          while (os.clock() < sec) do 
+          end 
+      end
+
+      function run (step_handle)
+        i = 0
+        while true do
+          torustiq_send(step_handle, "Hello, World!!" .. i, {a="b", c="d"})
+          i = i + 1
+          wait(0.1)
+        end
+      end
+- name: Lua Transform
+  handler: lua
+  args:
+    code_contents: |-
+      function (step_handle, content, metadata)
+        content = content .. " And hello again!!"
+        metadata["e"] = "fgh"
+        torustiq_send(step_handle, content, metadata)
+        return ""
+      end
+- name: Lua Destination
+  handler: lua
+  args:
+    code_contents: |-
+      function (step_handle, content, metadata)
+        print(content)
+        for i, v in pairs( metadata ) do
+          print( i, v)
+        end
+        return ""
+      end
