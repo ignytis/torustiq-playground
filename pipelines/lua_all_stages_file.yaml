@@ -1,0 +1,14 @@
+# Using Lua to generate the data
+steps:
+- name: Lua source
+  handler: lua
+  args:
+    file: ../torustiq-playground/code/lua/source_time_interval.lua
+- name: Lua Transform
+  handler: lua
+  args:
+    file: ../torustiq-playground/code/lua/transform_simple.lua
+- name: Lua Destination
+  handler: lua
+  args:
+    file: ../torustiq-playground/code/lua/destination_stdout.lua
