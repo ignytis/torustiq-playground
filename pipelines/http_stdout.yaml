@@ -1,0 +1,8 @@
+description: Reads the HTTP payload and sends to stdout
+steps:
+- name: HTTP Source
+  handler: source_http
+- name: Stdout Destination
+  handler: stdio
+  args:
+    format: "%R\n%M\n"
