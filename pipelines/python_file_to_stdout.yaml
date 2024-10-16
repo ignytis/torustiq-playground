@@ -1,0 +1,12 @@
+description: Generates a Python from code by path file and displays in stdout
+steps:
+- name: Python source
+  handler: python
+  args:
+    file: ../torustiq-playground/code/python/source_time_inverval.py
+- name: Stdout Destination
+  handler: stdio
+  args:
+    format: "%R\n%M\n"
+
+

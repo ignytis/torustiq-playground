@@ -1,4 +1,4 @@
-# Using Python to generate the data
+description: Generates a Python from code inside YAML file and displays in stdout
 steps:
 - name: Python source
   handler: python

@@ -33,7 +33,6 @@ steps:
   args:
     code_contents: |-
       import json
-      # f = open("a.out", "w")
       def process(record, step_handle):
         print(f"TEST: {record.content}")
 
