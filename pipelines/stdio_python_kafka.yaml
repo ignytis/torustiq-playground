@@ -6,11 +6,11 @@ steps:
     code_contents: |-
       import json
       mtd = {"kafka.topic": "my_topic_one", "kafka.key": "msg", "kafka.headers.sample": "hello1", "kafka.headers.sample2": "hello2"}
-      def process(record, step_handle):
-          torustiq_send(PyRecord(content=record.content, metadata=mtd), step_handle)
+      def process(record, module_handle):
+          torustiq_send(PyRecord(content=record.content, metadata=mtd), module_handle)
   handler: python
 - name: Kafka Destination
-  handler: kafka
+  handler: kafka_cpp
   args:
     driver.bootstrap_servers: 127.0.0.1:29092
     driver.sasl.mechanism: PLAIN

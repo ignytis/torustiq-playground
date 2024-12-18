@@ -4,10 +4,10 @@ function wait (a)
     end 
 end
 
-function run (step_handle)
+function run (module_handle)
   i = 0
   while true do
-    torustiq_send(step_handle, "Hello, World!!" .. i, {a="b", c="d"})
+    torustiq_send(module_handle, "Hello, World!!" .. i, {a="b", c="d"})
     i = i + 1
     wait(0.1)
   end

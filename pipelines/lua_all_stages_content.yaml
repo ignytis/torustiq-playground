@@ -10,10 +10,10 @@ steps:
           end 
       end
 
-      function run (step_handle)
+      function run (module_handle)
         i = 0
         while true do
-          torustiq_send(step_handle, "Hello, World!!" .. i, {a="b", c="d"})
+          torustiq_send(module_handle, "Hello, World!!" .. i, {a="b", c="d"})
           i = i + 1
           wait(0.1)
         end
@@ -22,17 +22,17 @@ steps:
   handler: lua
   args:
     code_contents: |-
-      function (step_handle, content, metadata)
+      function (module_handle, content, metadata)
         content = content .. " And hello again!!"
         metadata["e"] = "fgh"
-        torustiq_send(step_handle, content, metadata)
+        torustiq_send(module_handle, content, metadata)
         return ""
       end
 - name: Lua Destination
   handler: lua
   args:
     code_contents: |-
-      function (step_handle, content, metadata)
+      function (module_handle, content, metadata)
         print(content)
         for i, v in pairs( metadata ) do
           print( i, v)

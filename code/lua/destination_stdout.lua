@@ -1,4 +1,4 @@
-function (step_handle, content, metadata)
+function (module_handle, content, metadata)
     print(content)
     for i, v in pairs(metadata) do
         print(i, v)
